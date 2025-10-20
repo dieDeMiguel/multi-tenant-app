@@ -3,8 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 export const protocol =
   process.env.NODE_ENV === 'production' ? 'https' : 'http';
-export const rootDomain =
-  process.env.PRODUCTION_URL || 'localhost:3000';
+export const rootDomain = 'wc2026agent.com';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
