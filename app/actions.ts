@@ -50,10 +50,20 @@ export async function createSubdomainAction(
     };
   }
 
-  await redis.set(`subdomain:${sanitizedSubdomain}`, {
-    emoji: icon,
-    createdAt: Date.now()
-  });
+  try {
+    await redis.set(`subdomain:${sanitizedSubdomain}`, {
+      emoji: icon,
+      createdAt: Date.now()
+    });
+  } catch (error) {
+    console.error('Failed to create subdomain:', error);
+    return {
+      subdomain,
+      icon,
+      success: false,
+      error: 'Failed to create subdomain. Please try again.'
+    };
+  }
 
   redirect(`${protocol}://${sanitizedSubdomain}.${rootDomain}`);
 }
